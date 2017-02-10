@@ -1,0 +1,28 @@
+server:
+  port: 8888
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+      url : jdbc:mysql://192.168.0.118:3306/news
+      username : root
+      password : 123456
+      driverClassName : com.mysql.jdbc.Driver
+      max-active : 20
+      max-idle : 8
+      min-idle : 8
+      initial-size : 10
+  jpa:
+    hibernate:
+      ddl-auto : update
+    show-sql : true
+
+securityConfig:
+  logoutSuccessUrl: /tosignout
+  permitAll: /rest/**,/bb**,/index,/news/**,/css/**,/js/**,/img/**
+  deniedPage: /deny
+  urlRoles: /**/new/** = admin;
+            /**/edit/** = admin,editor;
+            /**/delete/** = admin
+
+

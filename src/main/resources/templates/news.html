@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>医脉</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/gird.css">
+    <link rel="stylesheet" href="css/function.css">
+    <link rel="stylesheet" href="css/m-loyout.css">
+    <link rel="stylesheet" href="css/solution.css">
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  </head>
+  <body class="p-st">
+    <header class="m-hd">
+      <ul class="g-container nav">
+        <li><a href="index.html"><img class="logo" src="img/logo-small.png" alt="求是医脉"></a></li>
+        <li><a href="about.html">关于医脉</a></li>
+        <li><a href="solution.html">解决方案</a></li>
+        <li><a href="news.html">新闻中心</a></li>
+        <li><a href="hospital.html">合作医院</a></li>
+        <li><a href="join.html">加入医脉</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+      </ul>
+    </header>
+
+    <!-- m-banner -->
+    <section class="m-banner">
+      <img src="img/solution_banner.png" alt="solution">
+    </section>
+
+    <section class="m-bd">
+      <div class="g-container">
+        <div class="left f-fl">
+          <h2 class="l-hd">新闻中心</h2>
+          <ul class="l-list" id="j-list">
+            <li class="action">公司动态<span></span></li>
+            <li>医疗资讯<span></span></li>
+            <li>典型案例<span></span></li>
+          </ul>
+        </div>
+        <div class="right f-oh" id="j-item">
+          <div class="item">
+            <h2 class="r-hd">公司动态</h2>
+            <div class="r-box">
+              <a class="r-listItem">
+                  <span>浙江省眼科医院使出洪荒之力，上线全国首家眼科互联网医院</span>
+                  <time>2017-01-16</time>
+              </a>
+              <a class="r-listItem">
+                <span>浙江省眼科医院使出洪荒之力，上线全国首家眼科互联网医院</span>
+                <time>2017-01-16</time>
+              </a>
+              <a class="r-listItem">
+                <span>浙江省眼科医院使出洪荒之力，上线全国首家眼科互联网医院</span>
+                <time>2017-01-16</time>
+              </a>
+              <a class="r-listItem">
+                <span>浙江省眼科医院使出洪荒之力，上线全国首家眼科互联网医院</span>
+                <time>2017-01-16</time>
+              </a>
+              <a class="r-listItem">
+                <span>浙江省眼科医院使出洪荒之力，上线全国首家眼科互联网医院</span>
+                <time>2017-01-16</time>
+              </a>
+            </div>
+            <div class="page">
+              <span>共2页</span>
+              <a class="pg-btn" href="#">首页</a>
+              <a class="pg-btn" href="#">上一页</a>
+              <span>1/2</span>
+              <a class="pg-btn" href="#">下一页</a>
+              <a class="pg-btn" href="#">尾页</a>
+              <span>第
+                <select>
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                </select>
+                页
+              </span>
+            </div>
+          </div>
+          <div class="item">
+            <h2 class="r-hd">医疗资讯</h2>
+            <div class="">
+              <img src="img/001.png" alt="">
+            </div>
+          </div>
+          <div class="item">
+            <h2 class="r-hd">典型案例</h2>
+            <div class="">
+              <img src="img/001.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+    $("#j-item .item").hide();
+    $("#j-item .item").eq(0).show();
+    $("#j-list li").click(function() {
+      $(this).addClass("action");
+      $(this).siblings().removeClass("action");
+      $("#j-item .item").eq($(this).index()).show();
+      $("#j-item .item").eq($(this).index()).siblings().hide();
+    });
+
+    </script>
+
+    <footer class="m-ft">
+      <div class="g-container">
+        <div class="ft-nav">
+          <a href="#">解决方案</a>|
+          <a href="#">人才招聘</a>|
+          <a href="#">联系我们</a>
+        </div>
+        <p class="ft-pt">友情链接</p>
+        <p class="ft-cp">Copyright © </p>
+      </div>
+    </footer>
+  </body>
+</html>

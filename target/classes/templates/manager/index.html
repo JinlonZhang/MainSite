@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>医脉后台管理系统</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/unit.css}"/>
+    <link rel="stylesheet" th:href="@{/css/m-table.css}"/>
+    <link rel="stylesheet" th:href="@{/css/iconfont.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+</head>
+<body>
+<div class="m-aside">
+    <ul class="nav">
+        <li>
+            <i class="iconfont icon-xinwen icon"></i>新闻中心
+            <div class="drop-menu">
+                <a class="/news-active" th:href="@{/news/type}" target="main">新闻分类</a>
+                <a th:href="@{/news/list}" target="main">新闻列表</a>
+            </div>
+        </li>
+        <li>
+            <i class="iconfont icon-yonghu icon"></i>用户管理
+            <div class="drop-menu">
+                <a href="#">修改密码</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="m-main">
+    <div class="hd">
+        医脉后台管理系统
+    </div>
+
+    <iframe name="main" frameborder="0" height="100%" width="100%"></iframe>
+
+</div>
+</body>
+</html>

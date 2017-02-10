@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>医脉</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" th:href="@{/css/gird.css}"/>
+    <link rel="stylesheet" th:href="@{/css/function.css}"/>
+    <link rel="stylesheet" th:href="@{/css/m-loyout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/p-home.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+  </head>
+  <body class="p-home">
+    <header class="m-hd">
+      <ul class="g-container nav">
+        <li><a href="index.html"><img class="logo" th:src="@{/img/logo-small.png}" alt="求是医脉" /></a></li>
+        <li><a href="about.html">关于医脉</a></li>
+        <li><a href="solution.html">解决方案</a></li>
+        <li><a href="news.html">新闻中心</a></li>
+        <li><a href="hospital.html">合作医院</a></li>
+        <li><a href="join.html">加入医脉</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+      </ul>
+    </header>
+
+    <!-- banner -->
+    <section class="banner">
+      <img th:src="@{/img/banner01.jpg}" alt=""/>
+    </section>
+
+    <!-- 远程医疗平台 -->
+    <section class="module">
+      <div class="g-container">
+        <h2 class="title">远程医疗平台</h2>
+        <div class="icon-box" id="j-iconbox">
+          <dl class="icon-group">
+            <dt class="dt-action"></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+        </div>
+        <div class="arrow">
+          <span class="arrow-blue" id="j-arrow"></span>
+        </div>
+      </div>
+      <ul class="img-box f-oh" id="j-imgbox">
+        <li>
+          <a href="#"><img th:src="@{/img/img01.jpg}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img02.png}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img01.jpg}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img02.png}" alt=""/></a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 智慧医疗平台 -->
+    <section class="module">
+      <div class="g-container">
+        <h2 class="title">智慧医疗平台</h2>
+        <div class="icon-box" id="j-iconbox01">
+          <dl class="icon-group">
+            <dt class="dt-action"></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+          <dl class="icon-group">
+            <dt></dt>
+            <dd>远程会诊</dd>
+          </dl>
+        </div>
+        <div class="arrow">
+          <span class="arrow-blue" id="j-arrow01"></span>
+        </div>
+      </div>
+      <ul class="img-box f-oh" id="j-imgbox01">
+        <li>
+          <a href="#"><img th:src="@{/img/img01.jpg}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img02.png}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img01.jpg}" alt=""/></a>
+        </li>
+        <li>
+          <a href="#"><img th:src="@{/img/img02.png}" alt=""/></a>
+        </li>
+      </ul>
+    </section>
+
+    <script type="text/javascript">
+      $("#j-imgbox li").eq(0).siblings().hide();
+      $("#j-iconbox dl").mouseover(function() {
+        $(this).children("dt").addClass("dt-action");
+        $(this).siblings().children("dt").removeClass("dt-action");
+        var n = $(this).index() * 25;
+        $("#j-arrow").css("left", n + "%");
+        $("#j-imgbox li").eq($(this).index()).show();
+        $("#j-imgbox li").eq($(this).index()).siblings().hide();
+      });
+
+      $("#j-imgbox01 li").eq(0).siblings().hide();
+      $("#j-iconbox01 dl").mouseover(function() {
+        $(this).children("dt").addClass("dt-action");
+        $(this).siblings().children("dt").removeClass("dt-action");
+        var n = $(this).index() * 25;
+        $("#j-arrow01").css("left", n + "%");
+        $("#j-imgbox01 li").eq($(this).index()).show();
+        $("#j-imgbox01 li").eq($(this).index()).siblings().hide();
+      });
+
+    </script>
+
+      <!-- 新闻资讯 -->
+    <section class="news">
+      <div class="g-container f-oh">
+        <div class="news-box news-lt f-fl">
+          <h2 class="news-title">医脉新闻<span class="news-more">更多</span></h2>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+        </div>
+        <div class="news-box news-rt f-fr">
+          <h2 class="news-title">医脉新闻<span class="news-more">更多</span></h2>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+          <div class="news-item">
+            <a href="#">17撩动|让你眼红的别人家年会...</a>
+            <span>2017-01-16</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="m-ft">
+      <div class="g-container">
+        <div class="ft-nav">
+          <a href="#">解决方案</a>|
+          <a href="#">人才招聘</a>|
+          <a href="#">联系我们</a>
+        </div>
+        <p class="ft-pt">友情链接</p>
+        <p class="ft-cp">Copyright © </p>
+      </div>
+    </footer>
+  </body>
+</html>

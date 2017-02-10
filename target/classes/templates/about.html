@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title>医脉</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/gird.css}"/>
+    <link rel="stylesheet" th:href="@{/css/function.css}"/>
+    <link rel="stylesheet" th:href="@{/css/m-loyout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/solution.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+  </head>
+  <body class="p-st">
+    <header class="m-hd">
+      <ul class="g-container nav">
+        <li><a href="index.html"><img class="logo" th:src="@{/img/logo-small.png}" alt="求是医脉"></a></li>
+        <li><a href="about.html">关于医脉</a></li>
+        <li><a href="solution.html">解决方案</a></li>
+        <li><a href="news.html">新闻中心</a></li>
+        <li><a href="hospital.html">合作医院</a></li>
+        <li><a href="join.html">加入医脉</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+      </ul>
+    </header>
+
+    <!-- m-banner -->
+    <section class="m-banner">
+      <img th:src="@{/img/solution_banner.png}" alt="solution">
+    </section>
+
+    <section class="m-bd">
+      <div class="g-container">
+        <div class="left f-fl">
+          <h2 class="l-hd">关于医脉</h2>
+          <ul class="l-list" id="j-list">
+            <li class="action">公司介绍<span></span></li>
+            <li>公司架构<span></span></li>
+          </ul>
+        </div>
+        <div class="right f-oh" id="j-item">
+          <div class="item">
+            <h2 class="r-hd">公司介绍</h2>
+            <div class="">
+              <img th:src="@{/img/001.png}" alt="">
+            </div>
+          </div>
+          <div class="item">
+            <h2 class="r-hd">公司架构</h2>
+            <div class="">
+              <img th:src="@{/img/001.png}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+    $("#j-item .item").hide();
+    $("#j-item .item").eq(0).show();
+    $("#j-list li").click(function() {
+      $(this).addClass("action");
+      $(this).siblings().removeClass("action");
+      $("#j-item .item").eq($(this).index()).show();
+      $("#j-item .item").eq($(this).index()).siblings().hide();
+    });
+
+    </script>
+
+    <footer class="m-ft">
+      <div class="g-container">
+        <div class="ft-nav">
+          <a href="#">解决方案</a>|
+          <a href="#">人才招聘</a>|
+          <a href="#">联系我们</a>
+        </div>
+        <p class="ft-pt">友情链接</p>
+        <p class="ft-cp">Copyright © </p>
+      </div>
+    </footer>
+  </body>
+</html>

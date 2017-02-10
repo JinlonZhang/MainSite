@@ -1,0 +1,24 @@
+.m-table {
+  width: 100%;
+}
+
+.m-table thead {
+  background-color: #7e8489;
+}
+.m-table th {
+  padding: 10px 5px;
+  font-size: 16px;
+  color: #eee;
+  border-right: 1px solid #eee;
+}
+
+.m-table .right-border {
+  border-right: 1px solid #7e8489;
+}
+
+.m-table td {
+  border: 1px solid #7e8489;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #646464;
+}

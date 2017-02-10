@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/unit.css}"/>
+    <link rel="stylesheet" th:href="@{/css/m-table.css}"/>
+    <link rel="stylesheet" th:href="@{/css/iconfont.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+</head>
+<body>
+<!-- 新闻类别 -->
+<section class="m-type">
+    <table class="m-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>类别</th>
+            <th>描述</th>
+            <th>创建日期</th>
+            <th class="right-border">操作</th>
+        </tr>
+        </thead>
+        <tbody id="j-typeList">
+        <tr>
+            <td>1</td>
+            <td>公司动态</td>
+            <td>公司的一些新闻动态</td>
+            <td>2017-02-08</td>
+            <td><a class="u-btn u-btn-green u-mrt">编辑</a><a class="u-btn u-btn-red">删除</a></td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>公司动态</td>
+            <td>公司的一些新闻动态</td>
+            <td>2017-02-08</td>
+            <td><a class="u-btn u-btn-green u-mrt">编辑</a><a class="u-btn u-btn-red">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="btn-box">
+        <a class="u-btn u-btn-lg" href="javascript:addType();">添加分类</a>
+    </div>
+</section>
+
+
+<!-- 添加分类 -->
+<section id="j-slockScreen">
+    <div class="m-addType">
+        <h1><i class="iconfont icon-tianjia1 icon"></i>新增分类</h1>
+        <form class="" th:action="@{/news/addType}" method="post">
+            <div class="u-group">
+                <label for="">名称</label>
+                <div class="ipt-box u-tip">
+                    <input class="u-ipt" type="text" name="name"  />
+                </div>
+            </div>
+            <div class="u-group">
+                <label for="">描述</label>
+                <div class="ipt-box u-prt20">
+                    <input class="u-ipt" type="text" name="remark"  />
+                </div>
+            </div>
+            <div class="btn-box">
+                <input class="u-btn u-btn-green u-btn-lg" type="submit" value="确认" />
+                <a class="u-btn u-btn-red u-btn-lg" href="javascript:closeType()">取消</a>
+            </div>
+        </form>
+    </div>
+</section>
+<script type="text/javascript">
+         $.ajax({
+            type: "GET",
+            url: "/news/findAllType",
+            success: function(data,status) {
+               console.log(data);
+               console.log(data[2]);
+               console.log(typeof data);
+               $.each(data,function(index,value){
+                    $("#j-typeList").append("<tr><td>"+ (index+1) +"</td><td>1</td><td>1</td><td>1</td><td><a>编辑</a></td></tr>");
+               });
+           }
+         });
+        var screen = $("#j-slockScreen");
+        var bh = $("body").height();
+        var bw = $("body").width();
+        function addType() {
+          screen.show();
+          console.log("test");
+        };
+        function closeType() {
+          screen.hide();
+        };
+    </script>
+</body>
+</html>

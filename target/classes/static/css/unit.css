@@ -1,0 +1,91 @@
+.u-btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #52ad9e;
+  color: #fff;
+}
+
+.u-btn-green {
+  background-color: #008B00;
+}
+
+.u-btn-blue {
+  background-color: #1e7ebe;
+}
+
+.u-btn-red {
+  background-color: #CD2626;
+}
+
+.u-btn:hover {
+  color: #fff;
+  background-color: #78bdb2;
+}
+
+.u-btn-green:hover {
+  color: #fff;
+  background-color: #33a233;
+}
+
+.u-btn-red:hover {
+  color: #fff;
+  background-color: #d75151;
+}
+
+.u-btn-blue:hover {
+  color: #fff;
+  background-color: #4b98cb;
+}
+
+.u-btn-lg {
+  padding: 10px 25px;
+}
+
+.u-mlt {
+  margin-left: 10px;
+}
+
+.u-mrt {
+  margin-right: 10px;
+}
+
+.u-ipt {
+  width: 100%;
+  line-height: 32px;
+  font-size: 14px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.u-ipt:focus{
+  border: 1px solid #8ebede;
+  box-shadow: 0 0 8px #8ebede;
+}
+
+.u-group label {
+  float: left;
+  line-height: 32px;
+  padding-right: 5px;
+}
+.u-group .ipt-box {
+  overflow: hidden;
+}
+
+.u-tip{
+  padding-right: 20px;
+  position: relative;
+}
+.u-tip::after{
+  content: "*";
+  color: #CD2626;
+  font-size: 16px;
+  position: absolute;
+  right: 5px;
+  top: 12px;
+}
+.u-prt20{
+  padding-right: 20px;
+}
