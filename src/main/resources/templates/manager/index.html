@@ -16,8 +16,8 @@
         <li>
             <i class="iconfont icon-xinwen icon"></i>新闻中心
             <div class="drop-menu">
-                <a class="/news-active" th:href="@{/news/type}" target="main">新闻分类</a>
-                <a th:href="@{/news/list}" target="main">新闻列表</a>
+                <a class="/news-active" th:href="@{/news/type#80}" target="main">新闻分类</a>
+                <a th:href="@{/news/list#90}" target="main">新闻列表</a>
             </div>
         </li>
         <li>
@@ -33,7 +33,7 @@
         医脉后台管理系统
     </div>
 
-    <iframe name="main" frameborder="0" height="100%" width="100%"></iframe>
+    <iframe name="main" th:src="@{/news/type}" frameborder="0" height="100%" width="100%"></iframe>
 
 </div>
 </body>

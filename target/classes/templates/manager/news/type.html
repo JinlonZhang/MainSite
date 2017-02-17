@@ -24,24 +24,10 @@
         </tr>
         </thead>
         <tbody id="j-typeList">
-        <tr>
-            <td>1</td>
-            <td>公司动态</td>
-            <td>公司的一些新闻动态</td>
-            <td>2017-02-08</td>
-            <td><a class="u-btn u-btn-green u-mrt">编辑</a><a class="u-btn u-btn-red">删除</a></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>公司动态</td>
-            <td>公司的一些新闻动态</td>
-            <td>2017-02-08</td>
-            <td><a class="u-btn u-btn-green u-mrt">编辑</a><a class="u-btn u-btn-red">删除</a></td>
-        </tr>
         </tbody>
     </table>
     <div class="btn-box">
-        <a class="u-btn u-btn-lg" href="javascript:addType();">添加分类</a>
+        <a class="u-btn u-btn-lg" id="j-addTypePage">添加分类</a>
     </div>
 </section>
 
@@ -49,50 +35,138 @@
 <!-- 添加分类 -->
 <section id="j-slockScreen">
     <div class="m-addType">
-        <h1><i class="iconfont icon-tianjia1 icon"></i>新增分类</h1>
-        <form class="" th:action="@{/news/addType}" method="post">
+        <h1><i class="iconfont icon-tianjia1 icon"></i><span>新增分类</span></h1>
+        <!--<form class="" th:action="@{/news/addType}" method="post">-->
+        <form>
             <div class="u-group">
                 <label for="">名称</label>
                 <div class="ipt-box u-tip">
-                    <input class="u-ipt" type="text" name="name"  />
+                    <input class="u-ipt" id="j-typeName" type="text" name="name"  />
                 </div>
             </div>
             <div class="u-group">
                 <label for="">描述</label>
                 <div class="ipt-box u-prt20">
-                    <input class="u-ipt" type="text" name="remark"  />
+                    <input class="u-ipt" id="j-typeRemark" type="text" name="remark"  />
                 </div>
             </div>
             <div class="btn-box">
-                <input class="u-btn u-btn-green u-btn-lg" type="submit" value="确认" />
-                <a class="u-btn u-btn-red u-btn-lg" href="javascript:closeType()">取消</a>
+                <span id="btn-box"></span>
+                <a class="u-btn u-btn-red u-btn-lg" id="j-close">取消</a>
             </div>
         </form>
     </div>
 </section>
-<script type="text/javascript">
-         $.ajax({
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+
+        // 显示新闻类别列表
+        var showTypeList = function() {
+            $.ajax({
             type: "GET",
             url: "/news/findAllType",
             success: function(data,status) {
-               console.log(data);
-               console.log(data[2]);
-               console.log(typeof data);
+                var html=null;
                $.each(data,function(index,value){
-                    $("#j-typeList").append("<tr><td>"+ (index+1) +"</td><td>1</td><td>1</td><td>1</td><td><a>编辑</a></td></tr>");
+                    html += "<tr><td>"+ (index+1) +"</td><td>" + value.name+ "</td><td>"+ value.remark +"</td><td>1</td><td><a class=\"u-btn u-btn-green u-mrt\" onClick=\"updateType(" + value.id + ")\">编辑</a><a onClick=\"deleteType(" + value.id + ")\" class=\"u-btn u-btn-red\">删除</a></td></tr>";
+                    <!--$("#j-typeList").append("<tr><td>"+ (index+1) +"</td><td>" + value.name+ "</td><td>"+ value.remark +"</td><td>1</td><td><a class=\"u-btn u-btn-green u-mrt\" onClick=\"updateType(" + value.id + ")\">编辑</a><a onClick=\"deleteType(" + value.id + ")\" class=\"u-btn u-btn-red\">删除</a></td></tr>");-->
                });
+               $("#j-typeList").html(html);
+               <!--console.log(html);-->
            }
          });
+        }
+
+        showTypeList();
+
+
+        // 添加新闻类别
         var screen = $("#j-slockScreen");
         var bh = $("body").height();
         var bw = $("body").width();
-        function addType() {
-          screen.show();
-          console.log("test");
-        };
-        function closeType() {
-          screen.hide();
-        };
+        $("#j-addTypePage").click(function() {
+            screen.show();
+            $("#btn-box").html("<a class=\"u-btn u-btn-green u-btn-lg\" id=\"j-addType\">确认</a>");
+            $("#j-addType").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "/news/addType",
+                data: {
+                    "name": $("#j-typeName").val(),
+                    "remark": $("#j-typeRemark").val(),
+                    [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                },
+                success: function(data, status) {
+                    $("#j-typeList").append("<tr><td>" + ($("#j-typeList").children("tr").length + 1) + "</td><td>" + data.name+ "</td><td>"+ data.remark +"</td><td>1</td><td><a class=\"u-btn u-btn-green u-mrt\" onClick=\"updateType(" + data.id + ")\">编辑</a><a onClick=\"deleteType(" + data.id + ")\" class=\"u-btn u-btn-red\">删除</a></td></tr>");
+                    screen.hide();
+                }
+            });
+        });
+        });
+        $("#j-close").click(function() {
+            screen.hide();
+        });
+
+
+
+        // 删除新闻类别
+        var deleteType = function(id) {
+            console.log("delete-id==", id);
+            console.log("this===",this);
+            $.ajax({
+                type: "GET",
+                data:{
+                    id: id,
+                    [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                   },
+                url: "/news/deleteType",
+                success: function(data, status) {
+                    console.log("ok");
+                    <!--$("#j-typeList").html("");-->
+                    showTypeList();
+                }
+            });
+        }
+
+        // 更新新闻类别
+        var updateType = function(id) {
+            screen.show();
+            $("#btn-box").html("<a class=\"u-btn u-btn-green u-btn-lg\" id=\"j-updateType\">确认</a>");
+            $.ajax({
+                type: "GET",
+                url: "/news/findTypeById",
+                data:{
+                    id: id,
+                    [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                   },
+                success: function(data, status) {
+                    $("#j-typeName").val(data.name);
+                    $("#j-typeRemark").val(data.remark);
+                }
+            });
+            $("#j-updateType").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/news/updateType",
+                    data: {
+                        "id": id,
+                        "name": $("#j-typeName").val(),
+                        "remark": $("#j-typeRemark").val(),
+                        [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                    },
+                    success: function(data, status) {
+                        screen.hide();
+                        showTypeList();
+                        console.log("update ok");
+                    }
+                });
+            });
+
+        }
+
+
+          /*]]>*/
     </script>
 </body>
 </html>

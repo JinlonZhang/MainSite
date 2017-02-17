@@ -20,8 +20,8 @@ public class NewsTypeService {
     private NewsTypeRepository newsTypeRepository;
 
 
-    public void save(NewsType newsType){
-        newsTypeRepository.save(newsType);
+    public Object save(NewsType newsType){
+        return newsTypeRepository.save(newsType);
     }
 
     public List<NewsType> findAll() {

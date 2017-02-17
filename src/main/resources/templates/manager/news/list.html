@@ -17,12 +17,10 @@
 <!-- 新闻列表 -->
 <section class="m-newsList">
     <div class="hd">
-        <select class="" name="">
-            <option value="">显示全部</option>
-            <option value="">公司动态</option>
-            <option value="">医疗资讯</option>
+        <select id="check-type">
+            <option value="00">显示全部</option>
         </select>
-        <a class="u-btn u-btn-blue" href="javascript:showPage()">新闻发布</a>
+        <a class="u-btn u-btn-blue" id="j-addPage">新闻发布</a>
     </div>
     <table class="m-table">
         <thead>
@@ -32,22 +30,12 @@
             <th>描述</th>
             <th>作者</th>
             <th>来源</th>
-            <th>封面</th>
+            <th>新闻分类</th>
             <th>发布时间</th>
             <th class="right-border">操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>求是医脉上市成功</td>
-            <td>描述描述</td>
-            <td>求是医脉</td>
-            <td>y医脉发布</td>
-            <td>封面</td>
-            <td>2017-02-18</td>
-            <td><a class="u-btn u-btn-green u-mrt">编辑</a><a class="u-btn u-btn-red">删除</a></td>
-        </tr>
+        <tbody id="j-newsList">
         </tbody>
     </table>
     <ul class="m-page">
@@ -77,8 +65,6 @@
                 <label for="">分类</label>
                 <div class="ipt-box">
                     <select id="news-type">
-                        <option value="1">01</option>
-                        <option value="2">02</option>
                     </select>
                 </div>
             </div>
@@ -110,7 +96,8 @@
             </div>
             <div class="btn-box">
                 <!--<input class="u-btn u-btn-green u-btn-lg" type="submit" value="保存" />-->
-                <a class="u-btn u-btn-green u-btn-lg" id="j-saveNews">保存</a>
+                <!--<a class="u-btn u-btn-green u-btn-lg" id="j-saveNews">保存</a>-->
+                <span id="j-btnBox"></span>
                 <a class="u-btn u-btn-red u-btn-lg" href="javascript:close()">取消</a>
             </div>
         </form>
@@ -118,48 +105,171 @@
 </section>
 
 <script type="text/javascript" th:inline="javascript">
-      $.ajax({
-        type: "GET",
-        url: "/news/findAllType",
-        success: function(data,status) {
-            console.log(data);
-            console.log(data[2]);
-            console.log(typeof data);
-            $.each(data,function(index,value){
-                 console.log("<option value=" + value.id + ">" + value.name + "</option>" );
-                 $("#news-type").append("<option value=" + value.id + ">" + value.name + "</option>");
-            });
-        }
-      })
-      function showPage() {
-        $("#j-addNews").show();
-      }
-      function close() {
-        $("#j-addNews").hide();
-      }
-      var ue = UE.getEditor('editor');
-      $("#j-saveNews").click(function() {
-        ue.getContent();
-        console.log(ue.getContent());
-        console.log("addNews");
+        console.log(window.location.hash);
+
+/*<![CDATA[*/
+        console.log(window.location.hash);
+        console.log("location");
+
         $.ajax({
-            type: "POST",
-            url: "/news/addNews",
+            type: "GET",
+            url: "/news/findAllType",
+            success: function(data, status) {
+                $.each(data, function(index, value) {
+                    $("#check-type").append("<option value=" + value.id + ">" + value.name + "</option>");
+                })
+                console.log(data);
+            }
+        });
+
+      // 显示新闻列表
+      var showNewsList = function() {
+        $.ajax({
+          type: "GET",
+          url: "/news/findAllNews",
+          success: function(data, status) {
+              var html = null;
+              $.each(data, function(index, value) {
+                    console.log("value====", value);
+                  html += "<tr><td>" + (index + 1) + "</td><td> " + value.title + " </td><td> " + value.remark + " </td><td> " + value.author + " </td><td> " + value.source + " </td><td> " + ((value.newsType && value.newsType.id) ? value.newsType.name : '') + " </td><td> " + ((value.createDate) ? value.createDate : '') + " </td><td><a class=\"u-btn u-btn-green u-mrt\" onclick=\"updateNews(" + value.id + ")\">编辑</a><a class=\"u-btn u-btn-red\" onClick=\"deleteNews("+ value.id +")\">删除</a></td><tr>";
+              })
+              $("#j-newsList").html(html);
+          }
+        });
+      }
+
+      showNewsList();
+      var ue = UE.getEditor('editor');
+
+      //  根据选择的新闻分类显示新闻列表
+      $("#check-type").change(function() {
+        $.ajax({
+            type: "GET",
+            url: "/news/showNewsByTypeId",
             data: {
-                "title": $("#news-title").val(),
-                "remark": $("#news-remark").val(),
-                "content": ue.getContent(),
-                "author": $("#news-author").val(),
-                "source": $("#news-source").val(),
-                "newsType": $("#news-type").val(),
+                id: $(this).children("option:selected").val(),
                 [[${_csrf.parameterName}]] : [[${_csrf.token}]]
             },
-            success:function(data){
-                alert(data);
+            success: function(data, status) {
+                if(data.length == 0) {
+                    $("#j-newsList").html("<tr><td>暂无数据</td></tr>");
+                } else {
+                    var html = null;
+                    $.each(data, function(index, value) {
+                        html += "<tr><td>" + (index + 1) + "</td><td> " + value.title + " </td><td> " + value.remark + " </td><td> " + value.author + " </td><td> " + value.source + " </td><td> " + ((value.newsType && value.newsType.id) ? value.newsType.name : '') + " </td><td> " + ((value.createDate) ? value.createDate : '') + " </td><td><a class=\"u-btn u-btn-green u-mrt\" onclick=\"updateNews(" + value.id + ")\">编辑</a><a class=\"u-btn u-btn-red\" onClick=\"deleteNews("+ value.id +")\">删除</a></td><tr>";
+                    });
+                    $("#j-newsList").html(html);
+                }
             }
         });
       });
 
+       // 添加新闻
+      $("#j-addPage").click(function() {
+            $("#j-addNews").show();
+            $("#j-btnBox").html("<a class=\"u-btn u-btn-green u-btn-lg\" id=\"j-saveNews\">保存</a>");
+            $("#j-saveNews").click(function() {
+                console.log('test');
+
+                ue.getContent();
+                $.ajax({
+                    type: "POST",
+                    url: "/news/addNews",
+                    data: {
+                        "title": $("#news-title").val(),
+                        "remark": $("#news-remark").val(),
+                        "content": ue.getContent(),
+                        "author": $("#news-author").val(),
+                        "source": $("#news-source").val(),
+                        "newsType": $("#news-type").val(),
+                        [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                    },
+                    success:function(data){
+                        alert(data);
+                    }
+                });
+            });
+      });
+
+      function close() {
+        $("#j-addNews").hide();
+      }
+
+      // 新闻分类选择
+      $.ajax({
+          type: "GET",
+          url: "/news/findAllType",
+          success: function(data,status) {
+              $.each(data,function(index,value){
+                   console.log("<option value=" + value.id + ">" + value.name + "</option>" );
+                   $("#news-type").append("<option value=" + value.id + ">" + value.name + "</option>");
+              });
+          }
+      });
+
+      // 更新新闻
+      var updateNews = function(id) {
+        console.log('test update');
+        $("#j-addNews").show();
+        $("#j-btnBox").html("<a class=\"u-btn u-btn-green u-btn-lg\" id=\"j-updateNews\">更新</a>");
+        $.ajax({
+            type: "GET",
+            url: "/news/findNewsById",
+            data: {
+                id: id,
+                [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+            },
+            success: function(data, status) {
+                console.log($("#news-type"));
+                console.log(id);
+                $("#news-title").val(data.title);
+                $("#news-remark").val(data.remark);
+                $("#news-author").val(data.author);
+                $("#news-source").val(data.source);
+                ue.setContent(data.content);
+                $("#news-type").val(id);
+            }
+        });
+        $("#j-updateNews").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "/news/updateNews",
+                data: {
+                    id: id,
+                    "title": $("#news-title").val(),
+                    "remark": $("#news-remark").val(),
+                    "content": ue.getContent(),
+                    "author": $("#news-author").val(),
+                    "source": $("#news-source").val(),
+                    "newsType": $("#news-type").val(),
+                    [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                },
+                success: function(data, status) {
+                  console.log("update");
+                }
+            });
+        });
+      }
+
+      // 删除新闻
+      var deleteNews = function(id) {
+        if(confirm("删除新闻")) {
+            $.ajax({
+                type: "GET",
+                url: "/news/deleteNews",
+                data: {
+                    id: id,
+                    [[${_csrf.parameterName}]] : [[${_csrf.token}]]
+                },
+                success: function(data, status) {
+                    console.log("status===", status);
+                    alert("ok");
+                }
+            });
+        }
+      }
+
+  /*]]>*/
     </script>
 </body>
 </html>

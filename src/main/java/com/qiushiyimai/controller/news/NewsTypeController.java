@@ -43,8 +43,7 @@ public class NewsTypeController {
     @PostMapping(value = "/addType")
     @ResponseBody
     public Object addType(NewsType newsType) {
-        newsTypeService.save(newsType);
-        return "ok";
+        return newsTypeService.save(newsType);
     }
 
     // 查询所有新闻分类
@@ -55,16 +54,16 @@ public class NewsTypeController {
     }
 
     // 根据id查询新闻类别
-    @GetMapping(value = "/findType/{id}")
+    @GetMapping(value = "/findTypeById")
     @ResponseBody
-    public Object findById(@PathVariable("id") long id) {
+    public Object findById(long id) {
         return newsTypeService.findById(id);
     }
 
     // 根据ID删除新闻类别
-    @RequestMapping(value = "/deleteType/{id}")
+    @RequestMapping(value = "/deleteType")
     @ResponseBody
-    public void deleteById(@PathVariable("id") long id) {
+    public void deleteById(long id) {
         newsTypeService.deleteById(id);
     }
 
@@ -88,5 +87,33 @@ public class NewsTypeController {
     @ResponseBody
     public List<News> findAllNews() {
         return newsService.findAll();
+    }
+
+    //根据新闻类型ID查询新闻列表
+    @GetMapping(value = "/showNewsByTypeId")
+    @ResponseBody
+    public List<News> findByTypeId(long id) {
+        return newsService.findByTypeId(id);
+    }
+
+    // 根据id查询新闻
+    @GetMapping(value = "/findNewsById")
+    @ResponseBody
+    public Object findNewsById(long id) {
+        return newsService.findById(id);
+    }
+
+    // 根据id删除新闻
+    @RequestMapping(value = "/deleteNews")
+    @ResponseBody
+    public void deleteNewsById(long id) {
+        newsService.deleteById(id);
+    }
+
+    // 更新新闻
+    @RequestMapping(value = "/updateNews")
+    @ResponseBody
+    public void updateNews(News news) {
+        newsService.update(news);
     }
 }
