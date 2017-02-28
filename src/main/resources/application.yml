@@ -4,9 +4,9 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-      url : jdbc:mysql://192.168.0.118:3306/news
+      url : jdbc:mysql://127.0.0.1:3306/news
       username : root
-      password : 123456
+      password : zjl606
       driverClassName : com.mysql.jdbc.Driver
       max-active : 20
       max-idle : 8

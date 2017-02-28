@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/m-table.css}"/>
     <link rel="stylesheet" th:href="@{/css/iconfont.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-tmpl.js}"></script>
     <script type="text/javascript" th:src="@{/js/editor/ueditor.config.js}"> </script>
     <script type="text/javascript" th:src="@{/js/editor/ueditor.all.min.js}"> </script>
     <script type="text/javascript" th:src="@{/js/editor/lang/zh-cn/zh-cn.js}"> </script>
@@ -185,7 +186,8 @@
                         [[${_csrf.parameterName}]] : [[${_csrf.token}]]
                     },
                     success:function(data){
-                        alert(data);
+                        $("#j-addNews").hide();
+                        showNewsList();
                     }
                 });
             });
@@ -245,7 +247,8 @@
                     [[${_csrf.parameterName}]] : [[${_csrf.token}]]
                 },
                 success: function(data, status) {
-                  console.log("update");
+                    $("#j-addNews").hide();
+                    showNewsList();
                 }
             });
         });
@@ -262,8 +265,8 @@
                     [[${_csrf.parameterName}]] : [[${_csrf.token}]]
                 },
                 success: function(data, status) {
-                    console.log("status===", status);
                     alert("ok");
+                    showNewsList();
                 }
             });
         }
